@@ -10,3 +10,6 @@ opencv-python
 pandas
 pyyaml
 psutil
+tqdm
+matplotlib
+seaborn
