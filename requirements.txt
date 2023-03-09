@@ -13,3 +13,6 @@ psutil
 tqdm
 matplotlib
 seaborn
+gitpython==3.1.30
+scipy==1.4.1
+setuptools==65.5.1
