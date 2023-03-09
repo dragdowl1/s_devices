@@ -43,6 +43,9 @@ async def startup_event():
     model.conf = 0.35
     models["1"] = model
 
+@app.get("/")
+async def root():
+    return {"message": "setup complete"}
 
 
 @app.post("/object_detect")
