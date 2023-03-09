@@ -33,11 +33,17 @@ logger.addHandler(file_handler)
 
 
 from predict import process_image
+models = {}
 
 app = FastAPI()
-model = torch.hub.load('ultralytics/yolov5', 'custom', path = 'best.pt', force_reload = True, trust_repo=True)
-# model = torch.hub.load(repo_or_dir= 'yolov5', model = 'custom', path = 'best.pt', source = 'local', force_reload = True)
-model.conf = 0.25
+@app.on_event("startup")
+async def startup_event():
+    model = torch.hub.load('ultralytics/yolov5', 'custom', path = 'best.pt', force_reload = True, trust_repo=True)
+    # model = torch.hub.load(repo_or_dir= 'yolov5', model = 'custom', path = 'best.pt', source = 'local', force_reload = True)
+    model.conf = 0.35
+    models["1"] = model
+
+
 
 @app.post("/object_detect")
 async def image_detect(request: Request,
@@ -45,6 +51,7 @@ async def image_detect(request: Request,
 
     if request.method == "POST":
         json_result = []
+        model = models["1"]
         try:
 
             image = Image.open(file.file)
