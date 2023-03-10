@@ -9,9 +9,8 @@ def process_image(frame, model):
     frame = frame.convert('RGB') 
     img = np.array(frame) 
     img = img[:, :, ::-1].copy() 
-    resized_image = cv2.resize(img, (col, row), interpolation = cv2.INTER_AREA)
-    # img = cv2.cvtColor(resized_image, cv2.COLOR_BGR2RGB)
-    out = model(resized_image, size=640)
+
+    out = model(img, size=640)
     jsn = [
         [
             {
